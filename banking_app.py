@@ -1,6 +1,8 @@
 import os
 import datetime
 import getpass
+import hashlib
+
 
 # Get the current date and time
 date_time = datetime.datetime.now()
@@ -16,6 +18,10 @@ account_number = 550000
 # admin credentials
 Admin_username = "admin"
 Admin_password = "admin123"
+
+# Function for password encryption
+def hash_password(password):
+    return hashlib.sha256(password.encode()).hexdigest()
 
 # Save all accounts to a file
 def save_accounts():
@@ -101,48 +107,53 @@ def login():
         if choice == '1':
             access="admin"
             username = input("\nEnter Admin username: ").strip()
+            print("Do worry your password will not be displayed")
+            print("-------------------------------------------------------------------------------------")
             password = getpass.getpass("Enter Admin password: ").strip()
             if username == Admin_username and password == Admin_password:
-                print("------------------------------------------------------------------------------------")
-                print("----------------------------Admin login successful----------------------------------")
-                print("------------------------------------------------------------------------------------")
-                print("\n")
                 admin_menu(access)
                 break
             else:
                 print("-------------------------------------------------------------------------------------")
                 print("----------------------------Invalid admin credentials--------------------------------")
                 print("-------------------------------------------------------------------------------------")
+                print("\n")
         elif choice == '2':
             try:
                 access="customer"
                 acc_num = input("\nEnter your account number: ").strip()
+                print("Do worry your password will not be displayed")
+                print("-------------------------------------------------------------------------------------")
                 password = getpass.getpass("Enter your password:").strip()
-                if acc_num in customer_details and customer_details[acc_num]["password"] == password:
-                    print("------------------------------------------------------------------------------------")
-                    print("----------------------------Customer login successful-------------------------------")
-                    print("------------------------------------------------------------------------------------")
+                hashed_password = hash_password(password)
+                if acc_num in customer_details and customer_details[acc_num]["password"] == hashed_password:
                     customer_menu(acc_num,access)
                     break
                 else:
                     print("------------------------------------------------------------------------------------")
                     print("----------------------------Invalid account number or password----------------------")
                     print("------------------------------------------------------------------------------------")
+                    print("\n")
             except ValueError:
                 print("Invalid input.")
         elif choice == '3':
             print("-------------------------------------------------------------------------------------")
             print("----------------------------Exiting the Banking System-------------------------------")
             print("-------------------------------------------------------------------------------------")   
+            print("\n")
             break
         else:
             print("-------------------------------------------------------------------------------------")  
             print("----------------------------Invalid choice-------------------------------------------")
             print("-------------------------------------------------------------------------------------")
-
+            print("\n")
 # Menu for admin operations
 def admin_menu(access):
     while True:
+        print("------------------------------------------------------------------------------------")
+        print("---------------------------------Admin Menu ----------------------------------------")
+        print("------------------------------------------------------------------------------------")
+        print("\n")
         print("Admin Menu")
         print("1. Create Account")
         print("2. Deposit Money")
@@ -164,6 +175,7 @@ def admin_menu(access):
             transaction_history(None,access)
         elif choice == '6':
             print("Logging out...")
+            print("\n")
             login()
         else:
             print("Invalid choice.")
@@ -171,7 +183,11 @@ def admin_menu(access):
 # Menu for customer operations
 def customer_menu(acc_num,access):
     while True:
-        print("\nCustomer Menu")
+        print("------------------------------------------------------------------------------------")
+        print("-----------------------------------Customer Menu------------------------------------")
+        print("------------------------------------------------------------------------------------")
+        print("\n")
+        print("Customer Menu")
         print("1. Deposit Money")
         print("2. Withdraw Money")
         print("3. Account to Account Transfer")
@@ -194,6 +210,7 @@ def customer_menu(acc_num,access):
             print("-------------------------------------------------------------------------------------")
             print("----------------------------Logging out----------------------------------------------")
             print("-------------------------------------------------------------------------------------")
+            print("\n")
             login()
         else:
             print("Invalid choice.")
@@ -203,16 +220,18 @@ def create_account():
     print("------------------------------------------------------------------------------------")
     print("----------------------------Create New Account--------------------------------------")
     print("------------------------------------------------------------------------------------")
-
+    print("\n")
     name = input("Enter your name: ").strip()
     National_ID = input("Enter your National ID Card Number: ").strip()
     password = input("Enter your password: ").strip()
+    hashed_password = hash_password(password)
     initial_balance = int(input("Enter initial deposit amount: "))
 
     if initial_balance < 0:
         print("-------------------------------------------------------------------------------------")  
         print("--------------------------Initial deposit cannot be negative-------------------------")
         print("-------------------------------------------------------------------------------------")
+        print("\n")
         return
 
     acc_num = str(get_next_account_number())
@@ -221,7 +240,7 @@ def create_account():
     customer_details[acc_num] = {
         "name": name,
         "National_ID": National_ID,
-        "password": password,
+        "password": hashed_password,
         "balance": initial_balance,
         "datetime":date_time.strftime('%x %X')
     }
@@ -244,12 +263,14 @@ def create_account():
     print(f"Account password is {password}.")
     print(f"Initial balance is {initial_balance}.")
     print("-------------------------------------------------------------------------------------")
+    print("\n")
 
 # Deposit money into an account (admin or customer)
 def deposit_money(acc_num=None,access=None):
     print("------------------------------------------------------------------------------------")
     print("----------------------------Deposit Money-------------------------------------------")
     print("------------------------------------------------------------------------------------")
+    print("\n")
     deposit_acnum = input("Enter your account number: ").strip()
     if acc_num == deposit_acnum or access == "admin":
         acc_num=deposit_acnum
@@ -263,21 +284,25 @@ def deposit_money(acc_num=None,access=None):
                 print("-------------------------------------------------------------------------------------")
                 print(f"Deposited {amount} to account {acc_num}. New balance: {accounts[acc_num]['balance']}")
                 print("-------------------------------------------------------------------------------------")
+                print("\n")
         except ValueError:
                 print("-------------------------------------------------------------------------------------")
                 print("---------------------------------Invalid input---------------------------------------")
                 print("-------------------------------------------------------------------------------------")
+                print("\n")
                 
     else:
         print("-------------------------------------------------------------------------------------")
         print("----------------------------Invalid account number-----------------------------------")
         print("-------------------------------------------------------------------------------------")
+        print("\n")
 
 # Withdraw money from an account (admin or customer)
 def withdraw_money(acc_num=None,access=None):
     print("------------------------------------------------------------------------------------")
     print("----------------------------Withdraw Money------------------------------------------")
     print("------------------------------------------------------------------------------------")
+    print("\n")
     withdraw_acnum = input("Enter your account number: ").strip()
     if acc_num== withdraw_acnum or access =="admin":
         try:
@@ -291,22 +316,26 @@ def withdraw_money(acc_num=None,access=None):
                 print("-------------------------------------------------------------------------------------")
                 print(f"Withdrew {amount} from account {acc_num}. New balance: {accounts[acc_num]['balance']}")
                 print("-------------------------------------------------------------------------------------")
+                print("\n")
             else:
                 print("-------------------------------------------------------------------------------------")
                 print("-------------------------------insufficient balance----------------------------------")
-                print("-------------------------------------------------------------------------------------")  
+                print("-------------------------------------------------------------------------------------") 
+                print("\n") 
         except ValueError:
             print("Invalid input.")
     else:
         print("-------------------------------------------------------------------------------------")
         print("-------------------------------Invalid account number--------------------------------")
         print("-------------------------------------------------------------------------------------")
+        print("\n")
 
 # Transfer money between accounts (customer)
 def account_to_account_transfer(acc_num=None,access=None):
     print("-------------------------------------------------------------------------------------")
     print("----------------------------Account to Account Transfer------------------------------")
     print("-------------------------------------------------------------------------------------")
+    print("\n")
     from_acc_num = input("Enter your account number: ").strip()
     if acc_num==from_acc_num or access=="admin": 
         try:
@@ -323,25 +352,30 @@ def account_to_account_transfer(acc_num=None,access=None):
                 print("-------------------------------------------------------------------------------------")
                 print(f"Transferred {amount} from account {from_acc_num} to account {to_acc_num}.")
                 print("-------------------------------------------------------------------------------------")
+                print("\n")
             else:
                 print("-------------------------------------------------------------------------------------")
                 print("---------------------------- insufficient balance -----------------------------------")
                 print("-------------------------------------------------------------------------------------")
+                print("\n")
         except ValueError:
             print("-------------------------------------------------------------------------------------")
             print("-------------------------------- Invalid input --------------------------------------")
             print("-------------------------------------------------------------------------------------")
+            print("\n")
             
     else:
         print("-------------------------------------------------------------------------------------")
         print("----------------------------Invalid account numbers----------------------------------")
         print("-------------------------------------------------------------------------------------")
+        print("\n")
         
 # Show balance of an account (admin or customer)
 def show_balance(acc_num=None,access=None):
     print("------------------------------------------------------------------------------------")
     print("----------------------------Show Balance--------------------------------------------")
     print("------------------------------------------------------------------------------------")
+    print("\n")
 
     show_num = input("Enter your account number: ").strip()
     if acc_num== show_num or access=="admin":
@@ -350,21 +384,25 @@ def show_balance(acc_num=None,access=None):
                 print("-------------------------------------------------------------------------------------")
                 print(f"Account {show_num} balance: {accounts[show_num]['balance']}") 
                 print("-------------------------------------------------------------------------------------")
+                print("\n")
         except ValueError:
             print("-------------------------------------------------------------------------------------")
             print("-------------------------------- Invalid input --------------------------------------")
             print("-------------------------------------------------------------------------------------")
             print("Invalid input.")
+            print("\n")
     else:
         print("-------------------------------------------------------------------------------------")
         print("----------------------------Invalid account number-----------------------------------")
         print("-------------------------------------------------------------------------------------")
+        print("\n")
 
 # Show transaction history of an account (admin or customer)
 def transaction_history(acc_num=None,access=None):
     print("------------------------------------------------------------------------------------")
     print("----------------------------Transaction History-------------------------------------")
     print("------------------------------------------------------------------------------------")
+    print("\n")
     transaction_acc=input("Enter your account number: ").strip()
     if acc_num== transaction_acc or access=="admin":
         acc_num=transaction_acc
@@ -372,12 +410,14 @@ def transaction_history(acc_num=None,access=None):
             print("-------------------------------------------------------------------------------------")
             print(f"Transaction history for account {acc_num}:")
             print("-------------------------------------------------------------------------------------")
+            print("\n")
             for transaction in transactions[acc_num]:
                 print(transaction)
     else:
         print("-------------------------------------------------------------------------------------")
         print("----------------------------Invalid account number-----------------------------------")
         print("-------------------------------------------------------------------------------------")
+        print("\n")
 
 # Start the application by calling the login function
 login()
