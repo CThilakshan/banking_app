@@ -17,9 +17,9 @@ users={}
 
 # Starting account number for new accounts
 account_number = 550000
-customer_number= "customer_0000"
-transaction_number= "transaction_0000"
-user_number= "user_0000"
+customer_number= 1090800000
+transaction_number= 7060500001
+user_number= 4030200001
 
 # admin credentials
 Admin_username = "admin"
@@ -60,7 +60,7 @@ def load_customer_details():
             for line in file:
                 acc_num, customer_id, name, National_ID, password, balance, datetime = line.strip().split(",")
                 customer_details[acc_num] = {
-                    "customer_id": customer_id,
+                    "customer_num": customer_id,
                     "name": name,
                     "National_ID": National_ID,
                     "password": password,
@@ -130,25 +130,20 @@ def get_next_account_number():
         return 550001
 def get_next_customer_number():
     if customer_details:
-        numbers = [int(key.replace("customer_", "")) for key in customer_details.keys()]
-        next_num = max(numbers) + 1
+        return max(map(int, customer_details.keys())) + 1
     else:
-        next_num = 1  
-    return f"customer_{next_num:04d}" 
+        return 1090800001 
+    
 def get_next_transaction_number():
     if transactions_details:
-        numbers = [int(key.replace("transaction_", "")) for key in transactions_details.keys()]
-        next_num = max(numbers) + 1
+         return max(map(int, transactions_details.keys())) + 1
     else:
-        next_num = 1  
-    return f"transaction_{next_num:04d}"
+        return 7060500001
 def get_next_user_number():
     if users:
-        numbers = [int(key.replace("user_", "")) for key in users.keys()]
-        next_num = max(numbers) + 1
+        return max(map(int, users.keys())) + 1
     else:
-        next_num = 1  
-    return f"user_{next_num:04d}"
+        return 4030200001
 
 def user(access):
     from datetime import datetime
@@ -270,6 +265,7 @@ def admin_menu(access):
 # Menu for customer operations
 def customer_menu(acc_num,access):
     user(access)
+    
     while True:
         print("------------------------------------------------------------------------------------")
         print("-----------------------------------Customer Menu------------------------------------")
@@ -475,8 +471,9 @@ def account_to_account_transfer(acc_num=None,access=None):
                 accounts[to_acc_num]["balance"] += amount
                 transactions[from_acc_num].append(f"{date_time.strftime('%x %X')} - Transferred Rs.{amount} to account {to_acc_num},balance: {accounts[from_acc_num]['balance']}")
                 transactions[to_acc_num].append(f"{date_time.strftime('%x %X')} - Received Rs.{amount} from account {from_acc_num},balance: {accounts[to_acc_num]['balance']}")
-                transaction_num= str(get_next_transaction_number())
-                transactions_details[transaction_num] = {
+                transaction_num_out = str(get_next_transaction_number())
+                transaction_num_in = str(get_next_transaction_number())
+                transactions_details[transaction_num_out] = {
                     "acc_num": from_acc_num,
                     "date_time": date_time.strftime('%x %X'),
                     "amount": amount,
@@ -484,7 +481,7 @@ def account_to_account_transfer(acc_num=None,access=None):
                     "balance": accounts[acc_num]["balance"],
                     "access": access
                     }
-                transactions_details[transaction_num] = {
+                transactions_details[transaction_num_in] = {
                     "acc_num": to_acc_num,
                     "date_time": date_time.strftime('%x %X'),
                     "amount": amount,
@@ -568,3 +565,4 @@ def transaction_history(acc_num=None,access=None):
 # Start the application by calling the login function
 login()
 
+#thank you for using the banking system
