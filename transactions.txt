@@ -1,0 +1,42 @@
+550001,05/14/25 00:12:10 - Deposited: 5000, Balance: 5000, Access: admin
+550001,05/14/25 00:12:10 - Deposited: 100, Balance: 5100, Access:admin
+550001,05/14/25 00:17:41 - Deposited: 100, Balance: 5200, Access:customer
+550001,05/14/25 00:17:41 - Withdrawn: 2000, Balance: 3200, Access: customer
+550001,05/14/25 00:17:41 - Transferred Rs.1000 to account 550002,balance: 2200
+550001,05/14/25 00:12:10 - Deposited: 5000, Balance: 5000, Access: admin
+550001,05/14/25 00:12:10 - Deposited: 100, Balance: 5100, Access:admin
+550001,05/14/25 00:17:41 - Deposited: 100, Balance: 5200, Access:customer
+550001,05/14/25 00:17:41 - Withdrawn: 2000, Balance: 3200, Access: customer
+550001,05/14/25 00:17:41 - Transferred Rs.1000 to account 550002,balance: 2200
+550001,05/14/25 00:12:10 - Deposited: 5000, Balance: 5000, Access: admin
+550001,05/14/25 00:12:10 - Deposited: 100, Balance: 5100, Access:admin
+550001,05/14/25 00:17:41 - Deposited: 100, Balance: 5200, Access:customer
+550001,05/14/25 00:17:41 - Withdrawn: 2000, Balance: 3200, Access: customer
+550001,05/14/25 00:17:41 - Transferred Rs.1000 to account 550002,balance: 2200
+550001,05/14/25 00:12:10 - Deposited: 5000, Balance: 5000, Access: admin
+550001,05/14/25 00:12:10 - Deposited: 100, Balance: 5100, Access:admin
+550001,05/14/25 00:17:41 - Deposited: 100, Balance: 5200, Access:customer
+550001,05/14/25 00:17:41 - Withdrawn: 2000, Balance: 3200, Access: customer
+550001,05/14/25 00:17:41 - Transferred Rs.1000 to account 550002,balance: 2200
+550001,05/14/25 00:12:10 - Deposited: 5000, Balance: 5000, Access: admin
+550001,05/14/25 00:12:10 - Deposited: 100, Balance: 5100, Access:admin
+550001,05/14/25 00:17:41 - Deposited: 100, Balance: 5200, Access:customer
+550001,05/14/25 00:17:41 - Withdrawn: 2000, Balance: 3200, Access: customer
+550001,05/14/25 00:17:41 - Transferred Rs.1000 to account 550002,balance: 2200
+550001,05/14/25 00:23:18 - Deposited: 100, Balance: 2300, Access:customer
+550001,05/14/25 00:30:08 - Deposited: 1000, Balance: 3300, Access:customer
+550002,05/14/25 00:12:10 - Deposited: 1000, Balance: 1000, Access: admin
+550002,05/14/25 00:12:10 - Withdrawn: 100, Balance: 900, Access: admin
+550002,05/14/25 00:17:41 - Received Rs.1000 from account 550001,balance: 1900
+550002,05/14/25 00:12:10 - Deposited: 1000, Balance: 1000, Access: admin
+550002,05/14/25 00:12:10 - Withdrawn: 100, Balance: 900, Access: admin
+550002,05/14/25 00:17:41 - Received Rs.1000 from account 550001,balance: 1900
+550002,05/14/25 00:12:10 - Deposited: 1000, Balance: 1000, Access: admin
+550002,05/14/25 00:12:10 - Withdrawn: 100, Balance: 900, Access: admin
+550002,05/14/25 00:17:41 - Received Rs.1000 from account 550001,balance: 1900
+550002,05/14/25 00:12:10 - Deposited: 1000, Balance: 1000, Access: admin
+550002,05/14/25 00:12:10 - Withdrawn: 100, Balance: 900, Access: admin
+550002,05/14/25 00:17:41 - Received Rs.1000 from account 550001,balance: 1900
+550002,05/14/25 00:12:10 - Deposited: 1000, Balance: 1000, Access: admin
+550002,05/14/25 00:12:10 - Withdrawn: 100, Balance: 900, Access: admin
+550002,05/14/25 00:17:41 - Received Rs.1000 from account 550001,balance: 1900
